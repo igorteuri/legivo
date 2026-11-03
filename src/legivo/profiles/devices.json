@@ -1,0 +1,140 @@
+{
+ "_comentario": "Catálogo de dispositivos (px em retrato e dpi). verificado=true: confirmado; false: valor de especificação publicada, ainda não conferido no aparelho. O usuário pode adicionar dispositivos.",
+ "devices": [
+  {
+   "id": "a4",
+   "nome": "Papel A4 (impressão / tela grande)",
+   "width": 1240,
+   "height": 1754,
+   "dpi": 150,
+   "verificado": true,
+   "nota": "Tamanho de página."
+  },
+  {
+   "id": "letter",
+   "nome": "Papel Carta (Letter)",
+   "width": 1275,
+   "height": 1650,
+   "dpi": 150,
+   "verificado": true,
+   "nota": "Tamanho de página."
+  },
+  {
+   "id": "kp2",
+   "nome": "Kindle Paperwhite 2 (6ª geração, 2013)",
+   "width": 758,
+   "height": 1024,
+   "dpi": 212,
+   "verificado": true,
+   "nota": "Confirmado pelo usuário; 758x1024 a 212 ppi conforme especificações publicadas."
+  },
+  {
+   "id": "kpw",
+   "nome": "Kindle Paperwhite 1 (5ª geração, 2012)",
+   "width": 758,
+   "height": 1024,
+   "dpi": 212,
+   "verificado": false,
+   "nota": "Mesma resolução do Paperwhite 2."
+  },
+  {
+   "id": "k2",
+   "nome": "Kindle básico (4ª/5ª geração)",
+   "width": 600,
+   "height": 800,
+   "dpi": 167,
+   "verificado": false,
+   "nota": ""
+  },
+  {
+   "id": "kbasic",
+   "nome": "Kindle (11ª geração, 2022)",
+   "width": 1072,
+   "height": 1448,
+   "dpi": 300,
+   "verificado": false,
+   "nota": ""
+  },
+  {
+   "id": "kp3",
+   "nome": "Kindle Paperwhite 3 / 4 (2015, 2018)",
+   "width": 1072,
+   "height": 1448,
+   "dpi": 300,
+   "verificado": false,
+   "nota": ""
+  },
+  {
+   "id": "kpw5",
+   "nome": "Kindle Paperwhite 5 (11ª geração, 2021)",
+   "width": 1236,
+   "height": 1648,
+   "dpi": 300,
+   "verificado": false,
+   "nota": ""
+  },
+  {
+   "id": "kpw12",
+   "nome": "Kindle Paperwhite (12ª geração, 2024)",
+   "width": 1264,
+   "height": 1680,
+   "dpi": 300,
+   "verificado": false,
+   "nota": ""
+  },
+  {
+   "id": "kv",
+   "nome": "Kindle Voyage (2014)",
+   "width": 1072,
+   "height": 1448,
+   "dpi": 300,
+   "verificado": false,
+   "nota": ""
+  },
+  {
+   "id": "ko2",
+   "nome": "Kindle Oasis (2016, 2017, 2019)",
+   "width": 1264,
+   "height": 1680,
+   "dpi": 300,
+   "verificado": false,
+   "nota": ""
+  },
+  {
+   "id": "kscribe",
+   "nome": "Kindle Scribe",
+   "width": 1860,
+   "height": 2480,
+   "dpi": 300,
+   "verificado": false,
+   "nota": ""
+  },
+  {
+   "id": "dx",
+   "nome": "Kindle DX",
+   "width": 824,
+   "height": 1200,
+   "dpi": 150,
+   "verificado": false,
+   "nota": ""
+  },
+  {
+   "id": "kobo-clara",
+   "nome": "Kobo Clara HD",
+   "width": 1072,
+   "height": 1448,
+   "dpi": 300,
+   "verificado": false,
+   "nota": ""
+  },
+  {
+   "id": "custom",
+   "nome": "Personalizado",
+   "width": 1072,
+   "height": 1448,
+   "dpi": 300,
+   "verificado": true,
+   "nota": "Informe largura, altura e resolução."
+  }
+ ]
+}

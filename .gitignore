@@ -1,0 +1,21 @@
+# Só existem nesta máquina (dados, arquivos de trabalho e ferramentas de desenvolvimento)
+/local/
+/Prints/
+/Executavel/
+/Legivo/
+/CLAUDE.md
+/.claude/
+/.githooks/
+legivo_config.json
+legivo_projetos/
+
+# Compilação e caches
+dist/
+build/
+*.spec
+build_log.txt
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/

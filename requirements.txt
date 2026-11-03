@@ -1,0 +1,14 @@
+# Para rodar pelo código-fonte (Python 3.11 ou mais novo)
+pymupdf
+numpy
+pillow
+PySide6
+
+# OCR opcional (PDFs escaneados)
+rapidocr
+onnxruntime
+
+# Para gerar o executável e testar
+pyinstaller
+pytest
+ruff

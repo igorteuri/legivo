@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Legivo — PDF legível em qualquer tela</title>
+<meta name="description" content="O Legivo refaz o layout de PDFs de várias colunas (artigos, provas, livros de RPG) para ler no Kindle, tablet ou com letra grande. Pré-visualização na hora, grátis e de código aberto.">
+<meta property="og:title" content="Legivo — PDF legível em qualquer tela">
+<meta property="og:description" content="Artigos, provas e livros de RPG de várias colunas, refeitos para a sua tela. Grátis, offline e de código aberto.">
+<meta property="og:image" content="https://igorteuri.github.io/legivo/img/legivo-escuro.png">
+<link rel="icon" href="img/logo.png">
+<style>
+:root{
+  --bg:#f6f7fb; --surface:#ffffff; --text:#14182b; --muted:#566079; --line:#dde1ec;
+  --primary:#1f5fbf; --primary-ink:#ffffff; --accent:#c25400; --soft:#e9effb;
+  --shadow:0 1px 2px rgba(20,24,43,.06),0 12px 32px rgba(20,24,43,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#0e1118; --surface:#161b26; --text:#eef1f8; --muted:#a3adc4; --line:#262d3d;
+    --primary:#79a8ff; --primary-ink:#0b1220; --accent:#f0a05a; --soft:#1a2234;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 32px rgba(0,0,0,.35); }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--primary)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+header.nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:19px;color:var(--text);text-decoration:none}
+.brand img{width:34px;height:34px}
+.nav a.link{color:var(--muted);text-decoration:none;margin-left:20px;font-size:15px}
+.nav a.link:hover{color:var(--text)}
+.hero{text-align:center;padding:48px 0 28px}
+.hero h1{font-size:clamp(34px,6vw,56px);line-height:1.1;margin:0 0 16px;letter-spacing:-.02em}
+.hero h1 span{color:var(--accent)}
+.hero p.lead{max-width:680px;margin:0 auto 28px;color:var(--muted);font-size:clamp(17px,2.4vw,20px)}
+.cta{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:12px;font-weight:600;text-decoration:none;border:1px solid var(--line);color:var(--text);background:var(--surface);min-height:48px}
+.btn.primary{background:var(--primary);color:var(--primary-ink);border-color:var(--primary)}
+.btn:hover{filter:brightness(1.06)}
+.btn:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.note{margin-top:14px;font-size:14px;color:var(--muted)}
+.shot{margin:36px auto 8px;max-width:1000px;border-radius:16px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line);background:var(--surface)}
+.shot img{display:block;width:100%;height:auto}
+section{padding:56px 0}
+section h2{font-size:clamp(26px,4vw,36px);line-height:1.2;margin:0 0 10px;letter-spacing:-.01em}
+section p.sub{color:var(--muted);margin:0 0 28px;max-width:700px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px}
+.card h3{margin:0 0 6px;font-size:19px}
+.card p{margin:0;color:var(--muted);font-size:16px}
+.tag{display:inline-block;font-size:13px;font-weight:600;color:var(--primary);background:var(--soft);border-radius:999px;padding:3px 10px;margin-bottom:10px}
+.steps{counter-reset:s;display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));padding:0;list-style:none;margin:0}
+.steps li{counter-increment:s;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--primary);color:var(--primary-ink);font-weight:700;margin-bottom:10px}
+.steps h3{margin:0 0 6px;font-size:19px}
+.steps p{margin:0;color:var(--muted);font-size:16px}
+.dl{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
+.dl .card{display:flex;flex-direction:column;gap:10px}
+.dl .card .btn{margin-top:auto}
+.size{font-size:14px;color:var(--muted)}
+.faq details{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:10px}
+.faq summary{cursor:pointer;font-weight:600}
+.faq p{margin:10px 0 0;color:var(--muted)}
+footer{border-top:1px solid var(--line);padding:30px 0 50px;color:var(--muted);font-size:15px}
+footer .row{display:flex;flex-wrap:wrap;gap:14px 28px;justify-content:space-between}
+.pic-light{display:block}.pic-dark{display:none}
+@media (prefers-color-scheme: dark){.pic-light{display:none}.pic-dark{display:block}}
+@media (max-width:560px){.nav a.link.hide-sm{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="nav">
+    <a class="brand" href="#"><img src="img/logo.png" alt="">Legivo</a>
+    <nav><a class="link hide-sm" href="#recursos">Recursos</a><a class="link hide-sm" href="#baixar">Baixar</a><a class="link" href="https://github.com/igorteuri/legivo">GitHub</a></nav>
+  </header>
+
+  <main>
+    <div class="hero">
+      <h1>PDF <span>legível</span><br>em qualquer tela</h1>
+      <p class="lead">O Legivo refaz o layout de artigos científicos, provas e livros de RPG de várias colunas para ficarem confortáveis no Kindle, no tablet ou com letra grande. Você vê o resultado na hora, antes de converter.</p>
+      <div class="cta">
+        <a class="btn primary" id="cta-main" href="https://github.com/igorteuri/legivo/releases/latest">Baixar para Windows</a>
+        <a class="btn" href="https://github.com/igorteuri/legivo">Ver o código</a>
+      </div>
+      <p class="note">Grátis, offline e de código aberto (GPL-3.0). Nada sai do seu computador.</p>
+      <div class="shot">
+        <img class="pic-light" src="img/legivo-claro.png" alt="Janela do Legivo com o tema claro: o PDF original com as regiões detectadas à esquerda e o resultado refeito para a tela à direita" width="1500" height="860">
+        <img class="pic-dark" src="img/legivo-escuro.png" alt="Janela do Legivo com o tema escuro: o PDF original com as regiões detectadas à esquerda e o resultado refeito para a tela à direita" width="1500" height="860">
+      </div>
+    </div>
+
+    <section id="para-quem">
+      <h2>Para quem lê PDF em tela pequena</h2>
+      <p class="sub">Documentos feitos para papel viram colunas minúsculas no e-reader. O Legivo reorganiza o texto para a largura da sua tela.</p>
+      <div class="grid">
+        <div class="card"><span class="tag">Estudo</span><h3>Artigos e provas</h3><p>Duas colunas viram uma, mantendo figuras, tabelas e a ordem certa de leitura. Alternativas e campos de preencher ficam intactos.</p></div>
+        <div class="card"><span class="tag">RPG de mesa</span><h3>Livros de várias colunas</h3><p>Caixas laterais, tabelas, mapas e fundos decorados tratados como blocos, sem perder a legibilidade.</p></div>
+        <div class="card"><span class="tag">Acessibilidade</span><h3>Baixa visão</h3><p>Letra bem maior, alto contraste e uma coluna só. Dá para ampliar provas e documentos sem quebrar o layout.</p></div>
+      </div>
+    </section>
+
+    <section id="recursos">
+      <h2>O que ele faz</h2>
+      <p class="sub">Menos parâmetros misteriosos, mais controle visual.</p>
+      <div class="grid">
+        <div class="card"><h3>Prévia ao vivo</h3><p>Original com as regiões detectadas ao lado do resultado na tela do seu aparelho, com miniaturas de todas as páginas.</p></div>
+        <div class="card"><h3>Edição manual</h3><p>Exclua cabeçalhos e números de página (há sugestão automática), marque uma região como figura e corrija o que o programa errou.</p></div>
+        <div class="card"><h3>PDF ou EPUB de verdade</h3><p>No EPUB o texto continua texto, com títulos, índice, figuras e tabelas reais. O aparelho escolhe o tamanho da letra.</p></div>
+        <div class="card"><h3>OCR offline</h3><p>Reconhece PDFs escaneados, com acentos, sem enviar nada para a internet.</p></div>
+        <div class="card"><h3>Calibre, KOReader, Kindle e Kobo</h3><p>Envie por Wi-Fi ou USB, ou adicione direto à biblioteca do Calibre.</p></div>
+        <div class="card"><h3>Portátil e privado</h3><p>Funciona de uma pasta ou instalado, sem conta. Temas claro e escuro, com cores seguras para daltonismo.</p></div>
+      </div>
+    </section>
+
+    <section id="como-usar">
+      <h2>Como usar</h2>
+      <ol class="steps">
+        <li><h3>Abra o PDF</h3><p>Arraste o arquivo para a janela ou use “Escolher arquivo”.</p></li>
+        <li><h3>Escolha a tela e o tipo</h3><p>Kindle, Kobo, A4... e artigo, prova, RPG ou baixa visão.</p></li>
+        <li><h3>Confira e salve</h3><p>Veja o resultado ao vivo, ajuste o que quiser e converta para PDF ou EPUB.</p></li>
+      </ol>
+    </section>
+
+    <section id="baixar">
+      <h2>Baixar</h2>
+      <p class="sub">Windows 10 ou 11 (64 bits). Linux e macOS: rode pelo código-fonte, por enquanto.</p>
+      <div class="dl">
+        <div class="card"><span class="tag">Recomendado</span><h3>Instalador</h3><p>Instala só para você, sem pedir administrador, com atalho no menu Iniciar.</p><span class="size" data-size="setup">Versão completa, com OCR</span><a class="btn primary" data-asset="setup" href="https://github.com/igorteuri/legivo/releases/latest">Baixar o instalador</a></div>
+        <div class="card"><span class="tag">Sem instalar</span><h3>Portátil</h3><p>Extraia a pasta onde quiser (até num pen drive) e abra o Legivo.exe.</p><span class="size" data-size="portable">Versão completa, com OCR</span><a class="btn" data-asset="portable" href="https://github.com/igorteuri/legivo/releases/latest">Baixar o .zip</a></div>
+        <div class="card"><span class="tag">Menor</span><h3>Lite</h3><p>Igual, mas sem o OCR para PDFs escaneados. Bem menor para baixar.</p><span class="size" data-size="lite">Sem OCR</span><a class="btn" data-asset="lite" href="https://github.com/igorteuri/legivo/releases/latest">Baixar a versão lite</a></div>
+      </div>
+      <p class="note" id="version-note"></p>
+    </section>
+
+    <section class="faq" id="duvidas">
+      <h2>Dúvidas</h2>
+      <details><summary>O Windows mostrou “O Windows protegeu o computador”. É seguro?</summary><p>Esse aviso (SmartScreen) aparece para programas sem assinatura digital paga e pouco baixados. O código é aberto e pode ser conferido no GitHub. Clique em “Mais informações” e depois em “Executar assim mesmo”.</p></details>
+      <details><summary>Meus PDFs são enviados para algum lugar?</summary><p>Não. Todo o processamento é local. A única conexão do programa é, ao abrir, perguntar ao GitHub se há versão nova (dá para desligar na tela Sobre).</p></details>
+      <details><summary>Por que o programa é grande?</summary><p>Ele leva dentro o Python e a interface Qt (e, na versão completa, o OCR). A versão lite deixa o OCR de fora e fica bem menor.</p></details>
+      <details><summary>Funciona em Linux ou macOS?</summary><p>Ainda não há versão pronta, mas o código evita recursos só do Windows e roda pelo código-fonte (veja o README).</p></details>
+      <details><summary>Achei um PDF que sai errado.</summary><p>Abra uma <a href="https://github.com/igorteuri/legivo/issues">issue</a> contando o tipo de documento e a página. Isso ajuda a melhorar o reconhecimento.</p></details>
+    </section>
+  </main>
+
+  <footer>
+    <div class="row">
+      <div>Legivo, por Igor Teuri. Licença GPL-3.0-or-later.<br>Inspirado no <a href="https://www.willus.com/k2pdfopt/">K2pdfopt</a> (Willus.com).</div>
+      <div><a href="https://github.com/igorteuri/legivo">Código-fonte</a> · <a href="https://github.com/igorteuri/legivo/releases">Versões</a> · <a href="https://github.com/igorteuri/legivo/issues">Reportar problema</a></div>
+    </div>
+  </footer>
+</div>
+
+<script>
+// Preenche os botões com os arquivos da última versão publicada; se a consulta falhar, os links levam à página de releases.
+(function () {
+  var API = "https://api.github.com/repos/igorteuri/legivo/releases/latest";
+  function mb(n) { return (n / 1e6).toFixed(0) + " MB"; }
+  fetch(API, { headers: { Accept: "application/vnd.github+json" } })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (d) {
+      if (!d || !d.assets) return;
+      var pick = {
+        setup: function (a) { return /Setup/i.test(a.name) && !/lite/i.test(a.name) && /\.exe$/i.test(a.name); },
+        portable: function (a) { return /portatil\.zip$/i.test(a.name) && !/lite/i.test(a.name); },
+        lite: function (a) { return /lite/i.test(a.name) && /portatil\.zip$/i.test(a.name); }
+      };
+      Object.keys(pick).forEach(function (k) {
+        var a = d.assets.filter(pick[k])[0];
+        if (!a) {
+          var c = document.querySelector('[data-asset="' + k + '"]');
+          if (c && k === "setup") {                     // sem instalador nesta versão: esconde o cartão e aponta o botão principal ao portátil
+            c.parentNode.hidden = true;
+            var p = d.assets.filter(pick.portable)[0], m0 = document.getElementById("cta-main");
+            if (p && m0) m0.href = p.browser_download_url;
+          }
+          return;
+        }
+        var b = document.querySelector('[data-asset="' + k + '"]');
+        if (b) b.href = a.browser_download_url;
+        var s = document.querySelector('[data-size="' + k + '"]');
+        if (s) s.textContent += " · " + mb(a.size);
+        if (k === "setup") { var m = document.getElementById("cta-main"); if (m) m.href = a.browser_download_url; }
+      });
+      var n = document.getElementById("version-note");
+      if (n) n.innerHTML = "Versão atual: <strong>" + d.tag_name.replace(/^v/, "") + "</strong> · <a href=\"" + d.html_url + "\">notas da versão</a>";
+    })
+    .catch(function () {});
+})();
+</script>
+</body>
+</html>
