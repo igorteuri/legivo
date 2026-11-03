@@ -37,7 +37,7 @@ Página do projeto: **[igorteuri.github.io/legivo](https://igorteuri.github.io/l
 |---|---|
 | `Legivo-Setup-x.y.z.exe` | **Instalador** (só para o seu usuário, sem administrador, com atalho no menu Iniciar). Versão completa, com OCR. |
 | `Legivo-x.y.z-portatil.zip` | Pasta **portátil** completa: extraia onde quiser (até num pen drive) e abra `Legivo.exe`. |
-| `Legivo-x.y.z-lite-portatil.zip` | Versão **lite**, sem OCR para PDFs escaneados e bem menor. |
+| `Legivo-Setup-x.y.z-lite.exe` / `Legivo-x.y.z-lite-portatil.zip` | Versão **lite**: sem OCR para PDFs escaneados e bem menor (instalador de ~48 MB). |
 
 - O programa leva dentro o Python, o Qt e (na versão completa) o OCR, por isso é uma pasta e não um arquivo único: um `.exe` único teria o mesmo tamanho e demoraria vários segundos para abrir toda vez.
 - O Windows pode mostrar o aviso "O Windows protegeu o computador" (SmartScreen), porque o programa não tem assinatura digital paga. Clique em *Mais informações → Executar assim mesmo*.
@@ -71,21 +71,13 @@ python tools/release.py              # tudo da página de Releases: .zip complet
 
 Os instaladores usam o [Inno Setup 6](https://jrsoftware.org/isinfo.php) (`installer/legivo.iss`). Detalhes em [docs/BUILD.md](docs/BUILD.md).
 
-## Testes
-
-```
-python tools/ci.py     # sintaxe + lint + testes (~15 s)
-```
-
-Os testes usam PDFs gerados na hora. Mais em [docs/DESENVOLVIMENTO.md](docs/DESENVOLVIMENTO.md).
-
 ## Documentação
 
 [Desenvolvimento](docs/DESENVOLVIMENTO.md) · [Roteiro](docs/ROADMAP.md) · [Integrações (Calibre, KOReader, Kindle)](docs/INTEGRACOES.md) · [Compilação](docs/BUILD.md) · [Créditos](docs/CREDITS.md)
 
 ## Contribuir
 
-Achou um PDF que sai errado? Abra uma [issue](https://github.com/igorteuri/legivo/issues) contando o tipo de documento e, se puder, qual página (e um trecho que possa ser compartilhado). Pull requests são bem-vindos; rode `python tools/ci.py` antes.
+Achou um PDF que sai errado? Abra uma [issue](https://github.com/igorteuri/legivo/issues) contando o tipo de documento e, se puder, qual página (e um trecho que possa ser compartilhado). Pull requests são bem-vindos.
 
 ## Licença e créditos
 

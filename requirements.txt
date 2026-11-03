@@ -8,7 +8,5 @@ PySide6
 rapidocr
 onnxruntime
 
-# Para gerar o executável e testar
+# Para gerar o executável
 pyinstaller
-pytest
-ruff
